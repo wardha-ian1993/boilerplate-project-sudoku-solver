@@ -97,6 +97,22 @@ class SudokuSolver {
     const len = puzzleString.length;
     let board = puzzleString.split('');
 
+    for (let i = 0; i < len; i++) {
+      const row = rows[Math.floor(i / 9)];
+      const col = (i % 9) + 1;
+      const value = puzzleString[i];
+    
+      if (value === '.') continue;
+    
+      const isValidRow = this.checkRowPlacement(puzzleString, row, col, value);
+      const isValidCol = this.checkColPlacement(puzzleString, row, col, value);
+      const isValidReg = this.checkRegionPlacement(puzzleString, row, col, value);
+    
+      if (!isValidRow || !isValidCol || !isValidReg) {
+        return 'invalid';
+      }
+    }
+
     const solveSudoku = (board) => {
       let row, col, cell;
 

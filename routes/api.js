@@ -41,10 +41,10 @@ module.exports = function (app) {
         if (testPuzzle === 'length') {
           return res.json({ error: 'Expected puzzle to be 81 characters long' });
         }
-        if (col > 9 || col < 1 || indexRow === -1 ) {
+        if (indexRow === -1 || col > 9 || col < 1) {
           return res.json({ error: 'Invalid coordinate' });
         }
-        if (value > 9 || value < 1) {
+        if (!/[0-9]/.test(value) || value > 9 || value < 1) {
           return res.json({ error: 'Invalid value' });
         }
 
