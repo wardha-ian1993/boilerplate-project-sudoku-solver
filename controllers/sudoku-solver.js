@@ -2,9 +2,10 @@ class SudokuSolver {
   validate(puzzleString) {
     if (!/^(\d|\.)(\d|\.)+(\d|\.)$/.test(puzzleString)) {
       return 'invalid';
-    }
-    if (puzzleString.match(/(\d|\.)/g).length !== 81) {
+    } else if (puzzleString.match(/(\d|\.)/g).length !== 81) {
       return 'length';
+    } else {
+      return 'valid';
     }
   }
 
@@ -97,6 +98,10 @@ class SudokuSolver {
     const len = puzzleString.length;
     let board = puzzleString.split('');
 
+    const validTest = this.validate(puzzleString);
+    if (validTest === 'invalid') return 'invalid';
+    if (validTest === 'length') return 'length';
+
     for (let i = 0; i < len; i++) {
       const row = rows[Math.floor(i / 9)];
       const col = (i % 9) + 1;
@@ -109,7 +114,7 @@ class SudokuSolver {
       const isValidReg = this.checkRegionPlacement(puzzleString, row, col, value);
     
       if (!isValidRow || !isValidCol || !isValidReg) {
-        return 'invalid';
+        return 'incomplete';
       }
     }
 

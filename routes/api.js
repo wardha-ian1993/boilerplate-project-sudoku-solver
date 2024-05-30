@@ -81,7 +81,7 @@ module.exports = function (app) {
 
         // solve can return either invalid or solved puzzle
         const solvePuzzle = solve.call(solver, puzzle) || null;
-        if (solvePuzzle === 'invalid') {
+        if (solvePuzzle === 'incomplete') {
           return res.json({ error: 'Puzzle cannot be solved' });
         } else {
           return res.json({ solution: solvePuzzle });
